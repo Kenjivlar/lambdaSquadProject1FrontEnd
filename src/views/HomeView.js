@@ -1,13 +1,12 @@
 import React from 'react'
-import Navbar from '../components/Navbar'
+import HeroSection from '../components/HeroSection'
+
 
 export default function HomeView() {
 // Home view  
     return (
     <div className='container'>
-        <Navbar/>
-        <div>HeroSection</div>
-        <div>FooterSection</div>
+        <HeroSection/>
     </div>
   )
 }
