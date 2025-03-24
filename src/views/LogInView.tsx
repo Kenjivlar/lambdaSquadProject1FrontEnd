@@ -1,10 +1,12 @@
-import React from 'react'
 import SignInForm from '../components/LogInForm'
 
-export default function LoginView() {
+type Props = {}
+
+const LoginView = (props: Props) => {
   return (
     <div className='container'>
         <SignInForm/>
     </div>
   )
 }
+export default LoginView;

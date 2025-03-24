@@ -11,14 +11,14 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route exact path="/" element={<HomeView />} />
-          <Route exact path="/login" element={<SignInView />} />
-          <Route exact path="/register" element={<RegistrationView />} />
+          <Route path="/" element={<HomeView />} />
+          <Route path="/login" element={<SignInView />} />
+          <Route path="/register" element={<RegistrationView />} />
         </Routes>
         <Footer />
       </BrowserRouter>
     </>
-  );
+  )
 }
 
-export default App;
+export default App
