@@ -1,58 +1,105 @@
-import React, { useState } from "react";
-type Props = {}
+import React, { ReactHTMLElement, useState } from "react";
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
-const RegistrationhtmlForm = (props: Props) => {
-  
-  const [firstName, setFirstName] = useState<string>("");
-  const [lastName, setLastName] = useState<string>("");
-  const [dob, setDob] = useState<string>("");
-  const [phone, setPhone] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [creditScore, setCreditScore] = useState<number>(0);
-  const [role, setRole] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [reTypePassword, setReTypePassword] = useState<string>("");
+const RegistrationhtmlForm: React.FC = () => {
+  let navigate = useNavigate();
 
-  const handleCancel = () => {
-    setFirstName("");
-    setLastName("");
+  type AccountForm = {
+    email: string;
+    password: string;
+    accountTypeId: number;
+    firstName: string;
+    lastName: string;
+    phoneNumber: number;
+    creditScore: number;
   };
-  const handleFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFirstName(e.target.value);
-  };
-  const handleLastNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLastName(e.target.value);
-  };
+
+  const [account, setAccount] = useState<AccountForm>({
+    email: "",
+    password: "",
+    accountTypeId: 2,
+    firstName: "",
+    lastName: "",
+    phoneNumber: 0,
+    creditScore: 0,
+  });
+
+  const {
+    email,
+    password,
+    accountTypeId,
+    firstName,
+    lastName,
+    phoneNumber,
+    creditScore,
+  } = account;
+
+  // Methods
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const url = "http://localhost:8000/api/users/register";
+    console.log("OnSubmit executed");
+    console.log(account);
+    try {
+      await axios.post(url, account);
+      console.log('post request Successfuly')
+      navigate("/login"); // Redirect to home page
+    } catch (error) {
+      console.error("Failed to submit:", error);
+    }
+  }
+  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //spread operator ... expand attributes
+    setAccount({...account, [e.target.name]: e.target.value})
+}
+  // const handleCancel = () => {
+  //   setFirstName("");
+  //   setLastName("");
+  // };
+  // const handleFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setFirstName(e.target.value);
+  // };
+  // const handleLastNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setLastName(e.target.value);
+  // };
 
   return (
     <div className="container">
       <main className="htmlForm-signin w-100 m-auto">
-        <form>
-          <h1 className="h3 mb-4 fw-bold text-primary text-center" style={{ 
-  backgroundColor: '#e0f7fa', 
-  padding: '10px 20px', 
-  borderRadius: '500px', 
-  textShadow: '2px 2px 4px rgba(0, 0, 0, 0.1)', 
-  fontSize: '2rem' 
-}}> Register Here </h1>
- <p>Please fill in this htmlForm to create an account.</p>
+        <form onSubmit={(e) => onSubmit(e)}>
+          <h1
+            className="h3 mb-4 fw-bold text-primary text-center"
+            style={{
+              backgroundColor: "#e0f7fa",
+              padding: "10px 20px",
+              borderRadius: "500px",
+              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.1)",
+              fontSize: "2rem",
+            }}
+          >
+            {" "}
+            Register Here{" "}
+          </h1>
+          <p>Please fill in this htmlForm to create an account.</p>
 
-         <div className="border border-primary rounded p-4">
+          <div className="border border-primary rounded p-4">
             <h5 className="text-primary fw-normal mb-3">User Details:</h5>
 
-
             <div className="row mb-3 align-items-center">
-              <label htmlFor="firstName" className="col-sm-2 col-htmlForm-label">
+              <label htmlFor="firstName"className="col-sm-2 col-htmlForm-label">
                 FirstName:
               </label>
               <div className="col-sm-4">
                 <input
                   type="text"
-                  className="htmlForm-control"
-                  id="floatingInput"
+                  className="form-control"
+                  id="firstName"
+                  name="firstName"
+                  placeholder="First Name"
+                  required={true}
                   value={firstName}
-                  onChange={handleFirstNameChange}
-                />
+                  onChange={(e)=>onInputChange(e)}/>
               </div>
             </div>
 
@@ -63,10 +110,13 @@ const RegistrationhtmlForm = (props: Props) => {
               <div className="col-sm-4">
                 <input
                   type="text"
-                  className="htmlForm-control"
-                  id="floatingInput"
+                  className="form-control"
+                  id="lastName"
+                  name="lastName"
+                  placeholder="Last name"
+                  required={true}
                   value={lastName}
-                  onChange={handleLastNameChange}
+                  onChange={(e)=>onInputChange(e)}
                 />
               </div>
             </div>
@@ -77,46 +127,47 @@ const RegistrationhtmlForm = (props: Props) => {
               <div className="col-sm-4">
                 <input
                   type="email"
-                  className="htmlForm-control"
-                  id="floatingInput"
+                  className="form-control"
+                  id="email"
                   placeholder="name@example.com"
+                  name="email"
+                  required={true}
+                  value={email}
+                  onChange={(e)=>onInputChange(e)}
                 />
               </div>
             </div>
 
             <div className="row mb-3 align-items-center">
-              <label htmlFor="phone" className="col-sm-2 col-htmlForm-label">
+              <label htmlFor="phone" className="col-sm-2 col-form-label">
                 Phone
               </label>
-              <div className="col-sm-2">
-                <select className="htmlForm-select">
-                  <option value="+1">US +1</option>
-                  <option value="+91">IN +91</option>
-                  <option value="+61">AU +61</option>
-                  <option value="+81">JP +81</option>
-                  <option value="+52" selected>
-                    MX +52
-                  </option>
-                  <option value="+44">GB +52</option>
-                </select>
-              </div>
+
               <div className="col-sm-4">
-                <input type="tel" className="htmlForm-control" id="phone" />
+                <input 
+                  type="tel" 
+                  className="form-control" 
+                  id="phone" name="phone" required={true} 
+                  value={phoneNumber} onChange={(e)=>onInputChange(e)} />
               </div>
             </div>
 
             <div className="row mb-3 align-items-center">
-              <label htmlFor="creditScore" className="col-sm-2 col-htmlForm-label">
+              <label
+                htmlFor="creditScore"
+                className="col-sm-2 col-htmlForm-label"
+              >
                 Credit Score:
               </label>
               <div className="col-sm-4">
                 <input
                   type="number"
-                  className="htmlForm-control"
+                  className="form-control"
                   id="creditScore"
-                  min="300"
-                  max="850"
-                  required
+                  
+                  required={true}
+                  value={creditScore}
+                  onChange={(e)=>onInputChange(e)}
                 />
               </div>
             </div>
@@ -128,14 +179,21 @@ const RegistrationhtmlForm = (props: Props) => {
               <div className="col-sm-4">
                 <input
                   type="password"
-                  className="htmlForm-control"
-                  id="floatingPassword"
+                  className="form-control"
+                  id="password"
+                  name="password"
+                  required={true}
+                  value={password}
+                  onChange={(e)=>onInputChange(e)}
                 />
               </div>
             </div>
 
-            <div className="row mb-3 align-items-center">
-              <label htmlFor="repeatPassword" className="col-sm-2 col-htmlForm-label">
+             <div className="row mb-3 align-items-center">
+              <label
+                htmlFor="repeatPassword"
+                className="col-sm-2 col-htmlForm-label"
+              >
                 Repeat Password
               </label>
               <div className="col-sm-4">
@@ -145,9 +203,9 @@ const RegistrationhtmlForm = (props: Props) => {
                   id="floatingPassword"
                 />
               </div>
-            </div>
+            </div> 
           </div>
-
+          <br />
           <p>
             By creating an account you agree to our{" "}
             <a href="#">Terms & Privacy</a>.
@@ -159,7 +217,7 @@ const RegistrationhtmlForm = (props: Props) => {
             <button
               type="button"
               className="btn btn-primary rounded-pill px-5 mx-2"
-              onClick={handleCancel}
+      
             >
               Cancel
             </button>
@@ -174,7 +232,6 @@ const RegistrationhtmlForm = (props: Props) => {
       </main>
     </div>
   );
-}
-
+};
 
 export default RegistrationhtmlForm;
