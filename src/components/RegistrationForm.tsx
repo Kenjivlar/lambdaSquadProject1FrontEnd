@@ -70,16 +70,6 @@ const RegistrationhtmlForm = (props: Props) => {
                 />
               </div>
             </div>
-
-            <div className="row mb-3 align-items-center">
-              <label htmlFor="dateOfBirth" className="col-sm-2 col-htmlForm-label">
-                Date of Birth:
-              </label>
-              <div className="col-sm-4">
-                <input type="date" className="htmlForm-control" id="dob" required />
-              </div>
-            </div>
-
             <div className="row mb-3 align-items-center">
               <label htmlFor="email" className="col-sm-2 col-htmlForm-label">
                 Email address
@@ -132,21 +122,6 @@ const RegistrationhtmlForm = (props: Props) => {
             </div>
 
             <div className="row mb-3 align-items-center">
-              <label htmlFor="role" className="col-sm-2 col-htmlForm-label">
-                Role:
-              </label>
-              <div className="col-sm-4">
-                <select className="htmlForm-select" id="role">
-                  <option value="" selected>
-                    Choose...
-                  </option>
-                  <option value="USER">USER</option>
-                  <option value="MANAGER">MANAGER</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="row mb-3 align-items-center">
               <label htmlFor="password" className="col-sm-2 col-htmlForm-label">
                 Password
               </label>
@@ -169,65 +144,6 @@ const RegistrationhtmlForm = (props: Props) => {
                   className="htmlForm-control"
                   id="floatingPassword"
                 />
-              </div>
-            </div>
-          </div>
-
-          <div className="border border-primary rounded p-4">
-            <h5 className="text-primary fw-normal mb-3">Mailing Address:</h5>
-
-            <div className="row mb-3 align-items-center">
-              <label htmlFor="street" className="col-sm-2 col-htmlForm-label">
-                Street Address:
-              </label>
-              <div className="col-sm-4">
-                <input type="text" className="htmlForm-control" id="street" />
-              </div>
-            </div>
-
-            <div className="row mb-3 align-items-center">
-              <label htmlFor="city" className="col-sm-2 col-htmlForm-label">
-                City:
-              </label>
-              <div className="col-sm-4">
-                <input type="text" className="htmlForm-control" id="city" />
-              </div>
-            </div>
-
-            <div className="row mb-3 align-items-center">
-              <label htmlFor="state" className="col-sm-2 col-htmlForm-label">
-                State/Province:
-              </label>
-              <div className="col-sm-4">
-                <input type="text" className="htmlForm-control" id="state" />
-              </div>
-            </div>
-
-            <div className="row mb-3 align-items-center">
-              <label htmlFor="zip" className="col-sm-2 col-htmlForm-label">
-                ZIP/Postal Code:
-              </label>
-              <div className="col-sm-4">
-                <input type="text" className="htmlForm-control" id="zip" />
-              </div>
-            </div>
-
-            <div className="row mb-3 align-items-center">
-              <label htmlFor="country" className="col-sm-2 col-htmlForm-label">
-                Country:
-              </label>
-              <div className="col-sm-4">
-                <select className="htmlForm-select" id="country">
-                  <option value="" selected>
-                    Choose...
-                  </option>
-                  <option value="US">US United States</option>
-                  <option value="CA">CA Canada</option>
-                  <option value="UK">GB United Kingdom</option>
-                  <option value="IN">IN India</option>
-                  <option value="AU">AU Australia</option>
-                  <option value="MX">MX Mexico</option>
-                </select>
               </div>
             </div>
           </div>
