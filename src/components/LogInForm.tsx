@@ -1,34 +1,78 @@
- type Props = {}
+import { Link } from 'react-router-dom';
 
- const LoginForm = (props: Props) => {
+type Props = {};
+
+const LoginForm = (props: Props) => {
   return (
-    <div className='container'>
-        <main className="form-signin w-100 m-auto">
-  <form>
-    <img className="mb-4" src="/docs/{{< param docs_version >}}/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"/>
-    <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
+    <div className="container d-flex justify-content-center align-items-center" style={{ minHeight: "65vh" }}>
+      <main
+        className="form-signin w-100"
+        style={{
+          maxWidth: "800px",
+          padding: "30px",
+          border: "2px solid #007bff", // Border color
+          borderRadius: "8px", // Optional: Round corners, remove if you want a sharp square border
+          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", // Optional: Adds shadow for depth
+        }}
+      >
+        <form>
+          
+        <h1 className="h3 mb-4 fw-bold text-primary text-center" style={{ 
+  backgroundColor: '#e0f7fa', 
+  padding: '10px 20px', 
+  borderRadius: '8px', 
+  textShadow: '2px 2px 4px rgba(0, 0, 0, 0.1)', 
+  fontSize: '2rem' 
+}}>
+  Please sign in
+</h1>
 
-    <div className="form-floating">
-      <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com"/>
-      <label htmlFor="floatingInput">Email address</label>
-    </div>
-    <div className="form-floating">
-      <input type="password" className="form-control" id="floatingPassword" placeholder="Password"/>
-      <label htmlFor="floatingPassword">Password</label>
-    </div>
 
-    <div className="form-check text-start my-3">
-      <input className="form-check-input" type="checkbox" value="remember-me" id="checkDefault"/>
-      <label className="form-check-label" htmlFor="checkDefault">
-        Remember me
-      </label>
+          <div className="mb-4">
+            <label htmlFor="email" className="form-label">Email-Id</label>
+            <input
+              type="email"
+              className="form-control"
+              id="email"
+              placeholder="name@example.com"
+            />
+          </div>
+
+          <div className="mb-3">
+            <label htmlFor="password" className="form-label">Password</label>
+            <input
+              type="password"
+              className="form-control"
+              id="password"
+            />
+          </div>
+
+          <div className="form-check mb-3">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              value="remember-me"
+              id="checkDefault"
+            />
+            <label className="form-check-label" htmlFor="checkDefault">
+              Remember me
+            </label>
+          </div>
+
+          <div className="d-flex justify-content-center">
+            <Link to="/register">
+              <button
+                type="button"
+                className="btn btn-primary rounded-pill px-5"
+              >
+                Register
+              </button>
+            </Link>
+          </div>
+        </form>
+      </main>
     </div>
-    <button className="btn btn-primary w-100 py-2" type="submit">Sign in</button>
-    <p className="mt-5 mb-3 text-body-secondary">&copy;</p>
-  </form>
-</main>
-    </div>
-  )
-}
+  );
+};
 
 export default LoginForm;

@@ -28,17 +28,19 @@ const RegistrationhtmlForm = (props: Props) => {
     <div className="container">
       <main className="htmlForm-signin w-100 m-auto">
         <form>
-          <img
-            className="mb-4"
-            src="/docs/{{< param docs_version >}}/assets/brand/bootstrap-logo.svg"
-            alt=""
-            width="72"
-            height="57"
-          />
-          <h1 className="h3 mb-3 fw-bold">Register</h1>
-          <p>Please fill in this htmlForm to create an account.</p>
-          <div className="border border-primary rounded p-4">
+          <h1 className="h3 mb-4 fw-bold text-primary text-center" style={{ 
+  backgroundColor: '#e0f7fa', 
+  padding: '10px 20px', 
+  borderRadius: '500px', 
+  textShadow: '2px 2px 4px rgba(0, 0, 0, 0.1)', 
+  fontSize: '2rem' 
+}}> Register Here </h1>
+ <p>Please fill in this htmlForm to create an account.</p>
+
+         <div className="border border-primary rounded p-4">
             <h5 className="text-primary fw-normal mb-3">User Details:</h5>
+
+
             <div className="row mb-3 align-items-center">
               <label htmlFor="firstName" className="col-sm-2 col-htmlForm-label">
                 FirstName:
@@ -235,12 +237,12 @@ const RegistrationhtmlForm = (props: Props) => {
             <a href="#">Terms & Privacy</a>.
           </p>
           <div className="d-flex justify-content-center">
-            <button type="submit" className="btn btn-primary rounded-pill px-4">
+            <button type="submit" className="btn btn-primary rounded-pill px-5">
               Register
             </button>
             <button
               type="button"
-              className="btn btn-secondary rounded-pill px-4 mx-2"
+              className="btn btn-primary rounded-pill px-5 mx-2"
               onClick={handleCancel}
             >
               Cancel

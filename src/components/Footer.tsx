@@ -10,13 +10,6 @@ const Footer= (props: Props) => {
                     <h1>Logo here!</h1>
                 </a>
 
-                <ul className="nav col-md-4 justify-content-end">
-                    <li className="nav-item"><a href="#" className="nav-link px-2 text-body-secondary">Home</a></li>
-                    <li className="nav-item"><a href="#" className="nav-link px-2 text-body-secondary">Features</a></li>
-                    <li className="nav-item"><a href="#" className="nav-link px-2 text-body-secondary">Pricing</a></li>
-                    <li className="nav-item"><a href="#" className="nav-link px-2 text-body-secondary">FAQs</a></li>
-                    <li className="nav-item"><a href="#" className="nav-link px-2 text-body-secondary">About</a></li>
-                </ul>
             </footer>
         </div>
     )
