@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
 const RegistrationhtmlForm: React.FC = () => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   type AccountForm = {
     email: string;
