@@ -1,4 +1,4 @@
-import React, { ReactHTMLElement, useState } from "react";
+import React, { useState } from "react";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
@@ -11,7 +11,7 @@ const RegistrationhtmlForm: React.FC = () => {
     accountTypeId: number;
     firstName: string;
     lastName: string;
-    phoneNumber: number;
+    phoneNumber: string;
     creditScore: number;
   };
 
@@ -21,19 +21,11 @@ const RegistrationhtmlForm: React.FC = () => {
     accountTypeId: 2,
     firstName: "",
     lastName: "",
-    phoneNumber: 0,
+    phoneNumber: "",
     creditScore: 0,
   });
 
-  const {
-    email,
-    password,
-    accountTypeId,
-    firstName,
-    lastName,
-    phoneNumber,
-    creditScore,
-  } = account;
+  const [error, setError] = useState<string>("");
 
   // Methods
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -43,26 +35,28 @@ const RegistrationhtmlForm: React.FC = () => {
     console.log(account);
     try {
       await axios.post(url, account);
-      console.log('post request Successfuly')
+      console.log('User Registered Successfuly')
       navigate("/login"); // Redirect to home page
     } catch (error) {
-      console.error("Failed to submit:", error);
+      console.error("Failed to Register:", error);
     }
   }
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     //spread operator ... expand attributes
-    setAccount({...account, [e.target.name]: e.target.value})
-}
-  // const handleCancel = () => {
-  //   setFirstName("");
-  //   setLastName("");
-  // };
-  // const handleFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setFirstName(e.target.value);
-  // };
-  // const handleLastNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setLastName(e.target.value);
-  // };
+    setAccount({ ...account, [e.target.name]: e.target.value })
+  }
+
+  const onRepeatPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+
+    if (value !== account.password) {
+      setError("Passwords do not match.");
+    } else {
+      setError(""); // Clear error when they match
+    }
+
+  }
+
 
   return (
     <div className="container">
@@ -81,13 +75,13 @@ const RegistrationhtmlForm: React.FC = () => {
             {" "}
             Register Here{" "}
           </h1>
-          <p>Please fill in this htmlForm to create an account.</p>
+          <p>Please fill this Form to create an account.</p>
 
           <div className="border border-primary rounded p-4">
             <h5 className="text-primary fw-normal mb-3">User Details:</h5>
 
             <div className="row mb-3 align-items-center">
-              <label htmlFor="firstName"className="col-sm-2 col-htmlForm-label">
+              <label htmlFor="firstName" className="col-sm-2 col-htmlForm-label">
                 FirstName:
               </label>
               <div className="col-sm-4">
@@ -96,10 +90,9 @@ const RegistrationhtmlForm: React.FC = () => {
                   className="form-control"
                   id="firstName"
                   name="firstName"
-                  placeholder="First Name"
-                  required={true}
-                  value={firstName}
-                  onChange={(e)=>onInputChange(e)}/>
+                  required
+                  value={account.firstName}
+                  onChange={(e) => onInputChange(e)} />
               </div>
             </div>
 
@@ -113,10 +106,9 @@ const RegistrationhtmlForm: React.FC = () => {
                   className="form-control"
                   id="lastName"
                   name="lastName"
-                  placeholder="Last name"
-                  required={true}
-                  value={lastName}
-                  onChange={(e)=>onInputChange(e)}
+                  required
+                  value={account.lastName}
+                  onChange={(e) => onInputChange(e)}
                 />
               </div>
             </div>
@@ -131,9 +123,9 @@ const RegistrationhtmlForm: React.FC = () => {
                   id="email"
                   placeholder="name@example.com"
                   name="email"
-                  required={true}
-                  value={email}
-                  onChange={(e)=>onInputChange(e)}
+                  required
+                  value={account.email}
+                  onChange={(e) => onInputChange(e)}
                 />
               </div>
             </div>
@@ -144,11 +136,20 @@ const RegistrationhtmlForm: React.FC = () => {
               </label>
 
               <div className="col-sm-4">
-                <input 
-                  type="tel" 
-                  className="form-control" 
-                  id="phone" name="phone" required={true} 
-                  value={phoneNumber} onChange={(e)=>onInputChange(e)} />
+                <input
+                  type="tel"
+                  className="form-control"
+                  id="phone"
+                  name="phoneNumber"
+                  required
+                  value={account.phoneNumber}
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  onChange={(e) => {
+                    if (/^\d*$/.test(e.target.value)) {
+                      onInputChange(e)
+                    }
+                  }} />
               </div>
             </div>
 
@@ -164,10 +165,10 @@ const RegistrationhtmlForm: React.FC = () => {
                   type="number"
                   className="form-control"
                   id="creditScore"
-                  
-                  required={true}
-                  value={creditScore}
-                  onChange={(e)=>onInputChange(e)}
+                  name="creditScore"
+                  required
+                  value={account.creditScore}
+                  onChange={(e) => onInputChange(e)}
                 />
               </div>
             </div>
@@ -183,13 +184,13 @@ const RegistrationhtmlForm: React.FC = () => {
                   id="password"
                   name="password"
                   required={true}
-                  value={password}
-                  onChange={(e)=>onInputChange(e)}
+                  value={account.password}
+                  onChange={(e) => onInputChange(e)}
                 />
               </div>
             </div>
 
-             <div className="row mb-3 align-items-center">
+            <div className="row mb-3 align-items-center">
               <label
                 htmlFor="repeatPassword"
                 className="col-sm-2 col-htmlForm-label"
@@ -199,11 +200,15 @@ const RegistrationhtmlForm: React.FC = () => {
               <div className="col-sm-4">
                 <input
                   type="password"
-                  className="htmlForm-control"
-                  id="floatingPassword"
+                  className="form-control"
+                  id="repeatPassword"
+                  name="repeatPassword"
+                  onChange={(e) => onRepeatPasswordChange(e)}
                 />
+                {error && <small className="text-danger">{error}</small>}
+
               </div>
-            </div> 
+            </div>
           </div>
           <br />
           <p>
@@ -217,7 +222,7 @@ const RegistrationhtmlForm: React.FC = () => {
             <button
               type="button"
               className="btn btn-primary rounded-pill px-5 mx-2"
-      
+              onClick={() => navigate("/")}
             >
               Cancel
             </button>
