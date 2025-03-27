@@ -17,6 +17,7 @@
     "modern-css-reset": "^1.4.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-number-format": "^5.4.3",
     "react-router-dom": "^7.4.0"
   },
   "devDependencies": {
