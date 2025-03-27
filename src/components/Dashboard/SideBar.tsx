@@ -5,7 +5,7 @@ const SideBar:React.FC = () => {
   const navigate = useNavigate();
 
 const handleLogout = async () => {
-  if (window.confirm('¿Estás seguro de que quieres cerrar sesión?')) {
+  if (window.confirm('Are you sure to logout?')) {
     let url  ="http://localhost:8000/api/accounts/logout"
     try {
       await axios.post(url);
@@ -24,14 +24,13 @@ const handleLogout = async () => {
               <ul className="nav flex-column">
                   <li className="nav-item"><Link className="nav-link text-white" to="/user/dashboard/create-loan">Create a loan</Link></li>
                   <li className="nav-item"><Link className="nav-link text-white" to="/user/dashboard">All Loans</Link></li>
-                  {/* <li className="nav-item"><Link className="nav-link text-white" to=""></Link></li> */}
               </ul>
               <br/>
               <ul className="nav flex-column">
-                <li className="nav-item">Update Profile</li>
+                <li className="nav-item"><Link className="nav-link text-white" to="/user/dashboard/update-profile">Update Profile</Link></li>
 
                   <li className="nav-item">
-                  <a href="#" onClick={(e) => { e.preventDefault(); handleLogout(); }}>
+                  <a className="nav-link text-white" href="" onClick={(e) => { e.preventDefault(); handleLogout(); }}>
                       Logout
                   </a>
                   </li>

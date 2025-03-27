@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import RegistrationView from "./views/RegistrationView";
 import UserDashboard from "./views/UserDashboard";
 import CreateLoanView from "./views/CreateLoanView";
+import UpdateUserView from "./views/UpdateUserView";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/register" element={<RegistrationView />} />
           <Route path="/user/dashboard" element={<UserDashboard/>}/>
           <Route path="/user/dashboard/create-loan" element={<CreateLoanView/>}/>
+          <Route path="/user/dashboard/update-profile" element={<UpdateUserView/>}/>
         </Routes>
       </BrowserRouter>
     </>
