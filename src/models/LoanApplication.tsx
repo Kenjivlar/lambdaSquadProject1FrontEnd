@@ -3,7 +3,7 @@ interface AccountType {
     role: string;
 }
 
-interface Account {
+export interface Account {
     id: number;
     email: string;
     password: string;

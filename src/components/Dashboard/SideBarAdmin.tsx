@@ -8,8 +8,7 @@ const handleLogout = async () => {
   if (window.confirm('Are you sure to logout?')) {
     let url  ="http://localhost:8000/api/accounts/logout"
     try {
-      await axios.post(url);
-      localStorage.removeItem('authToken');
+      await axios.post(url, { withCredentials:true });
       navigate('/');
     } catch(error) {
       console.error(error)

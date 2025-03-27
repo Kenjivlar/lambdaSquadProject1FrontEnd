@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-
+import { Account } from "../models/LoanApplication";
 
 const LoginForm: React.FC = () => {
   const navigate = useNavigate();
@@ -14,13 +14,42 @@ const LoginForm: React.FC = () => {
   const [signIn, setSignIn] = useState<SignInForm>({
     email: "",
     password: "",
-  });
+  }, );
+
+  const [account, setAccount] = useState<Account | undefined>();
 
   const [error, setError] = useState("");
 
+  useEffect(() => {
+  }, []);
+    
+
+
+  const loadAccount = async () => {
+    try {
+      const url_accounts = "http://localhost:8000/api/accounts/session-check";
+      const result = await axios.get(url_accounts, { withCredentials: true });
+      console.log("Account data:", result.data);
+      
+      setAccount(result.data);  // This is async
+      
+      // Use the response data directly for navigation
+      if (result.data?.accountType?.id === 1) {
+        console.log("Admin role detected, redirecting...");
+        navigate("/admin/dashboard");
+      } else {
+        console.log("User role detected, redirecting...");
+        navigate("/user/dashboard");
+      }
+    } catch (error) {
+      console.error("Failed to load account:", error);
+    }
+  }
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log(account);
+    //setAccount(undefined);
     if (!signIn.email || !signIn.password) {
       setError("All fields are required.");
       return;
@@ -30,15 +59,15 @@ const LoginForm: React.FC = () => {
     console.log(signIn);
     try {
       await axios.post(url, signIn, {withCredentials:true});
-      console.log('Post Successfuly')
-      navigate("/user/dashboard");
+      loadAccount();
+
     } catch (error) {
       console.error("Login Failed:", error);
     }
   }
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
+    loadAccount()
     setSignIn({ ...signIn, [name]: value })
 
     if (name === "email" && !/\S+@\S+\.\S+/.test(value)) {
