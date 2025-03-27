@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 
 const LoginForm: React.FC = () => {
-
+  const navigate = useNavigate();
+  
   type SignInForm = {
     email: string;
     password: string;
@@ -23,12 +25,13 @@ const LoginForm: React.FC = () => {
       setError("All fields are required.");
       return;
     }
-    const url = "http://localhost:8000/api/users/login";
-    console.log("OnSubmit executed");
-    //console.log(signIn);
+    const url = "http://localhost:8000/api/accounts/login";
+    console.log("OnSubmit Login executed");
+    console.log(signIn);
     try {
       await axios.post(url, signIn);
-      console.log('Login Successfuly')
+      console.log('Post Successfuly')
+      navigate("/user/dashboard");
     } catch (error) {
       console.error("Login Failed:", error);
     }

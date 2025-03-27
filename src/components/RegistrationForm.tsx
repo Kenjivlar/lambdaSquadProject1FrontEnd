@@ -8,21 +8,21 @@ const RegistrationhtmlForm: React.FC = () => {
   type AccountForm = {
     email: string;
     password: string;
-    accountTypeId: number;
+    accountTypeId: number | undefined;
     firstName: string;
     lastName: string;
-    phoneNumber: string;
-    creditScore: number;
+    phoneNumber: number | undefined;
+    creditScore: number | undefined;
   };
 
   const [account, setAccount] = useState<AccountForm>({
     email: "",
     password: "",
-    accountTypeId: 2,
+    accountTypeId: 1,
     firstName: "",
     lastName: "",
-    phoneNumber: "",
-    creditScore: 0,
+    phoneNumber: undefined,
+    creditScore: undefined,
   });
 
   const [error, setError] = useState<string>("");
@@ -32,14 +32,24 @@ const RegistrationhtmlForm: React.FC = () => {
     e.preventDefault();
     const url = "http://localhost:8000/api/users/register";
     console.log("OnSubmit executed");
-    console.log(account);
-    try {
-      await axios.post(url, account);
-      console.log('User Registered Successfuly')
-      navigate("/login"); // Redirect to home page
-    } catch (error) {
-      console.error("Failed to Register:", error);
-    }
+    
+  // Prepare payload with enforced number types
+  const payload = {
+    ...account,
+    phoneNumber: account.phoneNumber !== undefined ? Number(account.phoneNumber) : undefined,
+    creditScore: account.creditScore !== undefined ? Number(account.creditScore) : undefined,
+  };
+
+  console.log("Payload to send:", payload);
+
+  try {
+    await axios.post(url, payload);
+    console.log('User Registered Successfully');
+    navigate("/login");
+  } catch (error) {
+    console.error("Failed to Register:", error);
+    setError("Registration failed. Please check your data.");
+  }
   }
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     //spread operator ... expand attributes
@@ -63,7 +73,7 @@ const RegistrationhtmlForm: React.FC = () => {
       <main className="htmlForm-signin w-100 m-auto">
         <form onSubmit={(e) => onSubmit(e)}>
           <h1
-            className="h3 mb-4 fw-bold text-primary text-center"
+            className="h3 mb-4 fw-bold text-primary text-center mt-4"
             style={{
               backgroundColor: "#e0f7fa",
               padding: "10px 20px",
@@ -75,8 +85,7 @@ const RegistrationhtmlForm: React.FC = () => {
             {" "}
             Register Here{" "}
           </h1>
-          <p>Please fill this Form to create an account.</p>
-
+         
           <div className="border border-primary rounded p-4">
             <h5 className="text-primary fw-normal mb-3">User Details:</h5>
 
@@ -90,6 +99,7 @@ const RegistrationhtmlForm: React.FC = () => {
                   className="form-control"
                   id="firstName"
                   name="firstName"
+                  placeholder="First Name"
                   required
                   value={account.firstName}
                   onChange={(e) => onInputChange(e)} />
@@ -106,6 +116,7 @@ const RegistrationhtmlForm: React.FC = () => {
                   className="form-control"
                   id="lastName"
                   name="lastName"
+                  placeholder="Last Name"
                   required
                   value={account.lastName}
                   onChange={(e) => onInputChange(e)}
@@ -141,6 +152,7 @@ const RegistrationhtmlForm: React.FC = () => {
                   className="form-control"
                   id="phone"
                   name="phoneNumber"
+                  placeholder="Phone number"
                   required
                   value={account.phoneNumber}
                   inputMode="numeric"
@@ -166,6 +178,7 @@ const RegistrationhtmlForm: React.FC = () => {
                   className="form-control"
                   id="creditScore"
                   name="creditScore"
+                  placeholder="Credit Score"
                   required
                   value={account.creditScore}
                   onChange={(e) => onInputChange(e)}
@@ -183,6 +196,7 @@ const RegistrationhtmlForm: React.FC = () => {
                   className="form-control"
                   id="password"
                   name="password"
+                  placeholder="Password"
                   required={true}
                   value={account.password}
                   onChange={(e) => onInputChange(e)}
@@ -203,6 +217,8 @@ const RegistrationhtmlForm: React.FC = () => {
                   className="form-control"
                   id="repeatPassword"
                   name="repeatPassword"
+                  placeholder="Repeat password"
+                  required
                   onChange={(e) => onRepeatPasswordChange(e)}
                 />
                 {error && <small className="text-danger">{error}</small>}
@@ -211,10 +227,6 @@ const RegistrationhtmlForm: React.FC = () => {
             </div>
           </div>
           <br />
-          <p>
-            By creating an account you agree to our{" "}
-            <a href="#">Terms & Privacy</a>.
-          </p>
           <div className="d-flex justify-content-center">
             <button type="submit" className="btn btn-primary rounded-pill px-5">
               Register
