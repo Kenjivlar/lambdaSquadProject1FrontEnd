@@ -6,7 +6,7 @@ const LoanForm:React.FC = () => {
     let navigate = useNavigate();
 
   type LoanForm = {
-    loanType: number | undefined;
+    loanTypeId: number | undefined;
     interestRate: number | undefined;
     amount: number | undefined;
     title: string;
@@ -14,7 +14,7 @@ const LoanForm:React.FC = () => {
   };
 
   const [loan, setLoan] = useState<LoanForm>({
-    loanType: undefined,
+    loanTypeId: undefined,
     interestRate: undefined,
     amount: undefined,
     title: "",
@@ -22,21 +22,31 @@ const LoanForm:React.FC = () => {
   });
 
   const {
-    loanType,
+    loanTypeId,
     interestRate,
     amount,
     title,
     description
   } = loan;
 
+        
+  
+
   // Methods
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const url = "http://localhost:8000/api/users/register";
-    console.log("OnSubmit executed");
-    console.log(loan);
+    const url = "http://localhost:8000/api/loans";
+    // Prepare payload with enforced number types
+    const payload = {
+      ...loan,
+      loanTypeId: loan.loanTypeId !== undefined ? Number(loan.loanTypeId) : undefined,
+      interestRate: loan.interestRate !== undefined ? Number(loan.interestRate) : undefined,
+      amount: loan.amount !== undefined ? Number(loan.amount) : undefined,
+    };
+
+    console.log("Payload to send:", payload);
     try {
-      await axios.post(url, loan);
+      await axios.post(url, payload,{withCredentials:true});
       console.log('post request Successfuly')
       navigate("/user/dashboard"); // Redirect to home page
     } catch (error) {
@@ -56,18 +66,18 @@ const LoanForm:React.FC = () => {
             <h5 className="text-primary fw-normal mb-3">Loan Details:</h5>
 
             <div className="row mb-3 align-items-center">
-              <label htmlFor="loanType"className="col-sm-2 col-htmlForm-label">
+              <label htmlFor="loanTypeId"className="col-sm-2 col-htmlForm-label">
                 Loan Type:
               </label>
               <div className="col-sm-4">
                 <input
                   type="number"
                   className="form-control"
-                  id="loanType"
-                  name="loanType"
+                  id="loanTypeId"
+                  name="loanTypeId"
                   placeholder="Loan Type"
                   required={true}
-                  value={loanType}
+                  value={loanTypeId}
                   onChange={(e)=>onInputChange(e)}/>
               </div>
             </div>
@@ -113,33 +123,28 @@ const LoanForm:React.FC = () => {
 
               <div className="col-sm-4">
                 <input 
-                  type="number" 
+                  type="text" 
                   className="form-control" 
                   placeholder="Title"
                   id="title" name="title" required={true} 
                   value={title} onChange={(e)=>onInputChange(e)} />
               </div>
             </div>
-
             <div className="row mb-3 align-items-center">
-              <label
-                htmlFor="description"
-                className="col-sm-2 col-htmlForm-label">
+              <label htmlFor="description" className="col-sm-2 col-form-label">
                 Description:
               </label>
+
               <div className="col-sm-4">
-                <input
-                  type="text"
+                <input 
+                  type="text" 
+                  className="form-control" 
                   placeholder="Description"
-                  className="form-control"
-                  id="description"
-                  
-                  required={true}
-                  value={description}
-                  onChange={(e)=>onInputChange(e)}
-                />
+                  id="description" name="description" required={true} 
+                  value={description} onChange={(e)=>onInputChange(e)} />
               </div>
             </div>
+            
 
           </div>
           <br />
@@ -150,9 +155,7 @@ const LoanForm:React.FC = () => {
             </button>
             <button
               type="button"
-              className="btn btn-primary rounded-pill px-5 mx-2"
-      
-            >
+              className="btn btn-primary rounded-pill px-5 mx-2">
               Cancel
             </button>
           </div>

@@ -11,14 +11,14 @@ const RegistrationhtmlForm: React.FC = () => {
     accountTypeId: number | undefined;
     firstName: string;
     lastName: string;
-    phoneNumber: number | undefined;
-    creditScore: number | undefined;
+    phoneNumber: string | undefined;
+    creditScore: string | undefined;
   };
 
   const [account, setAccount] = useState<AccountForm>({
     email: "",
     password: "",
-    accountTypeId: 1,
+    accountTypeId: 2,
     firstName: "",
     lastName: "",
     phoneNumber: undefined,
@@ -31,19 +31,10 @@ const RegistrationhtmlForm: React.FC = () => {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const url = "http://localhost:8000/api/users/register";
-    console.log("OnSubmit executed");
-    
-  // Prepare payload with enforced number types
-  const payload = {
-    ...account,
-    phoneNumber: account.phoneNumber !== undefined ? Number(account.phoneNumber) : undefined,
-    creditScore: account.creditScore !== undefined ? Number(account.creditScore) : undefined,
-  };
-
-  console.log("Payload to send:", payload);
-
+    console.log("Regist user onSubmit executed");
+    console.log(account)
   try {
-    await axios.post(url, payload);
+    await axios.post(url, account);
     console.log('User Registered Successfully');
     navigate("/login");
   } catch (error) {

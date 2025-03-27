@@ -29,7 +29,7 @@ const LoginForm: React.FC = () => {
     console.log("OnSubmit Login executed");
     console.log(signIn);
     try {
-      await axios.post(url, signIn);
+      await axios.post(url, signIn, {withCredentials:true});
       console.log('Post Successfuly')
       navigate("/user/dashboard");
     } catch (error) {

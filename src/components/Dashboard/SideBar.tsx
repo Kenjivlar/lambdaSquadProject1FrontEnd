@@ -1,6 +1,22 @@
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 const SideBar:React.FC = () => {
+  const navigate = useNavigate();
+
+const handleLogout = async () => {
+  if (window.confirm('¿Estás seguro de que quieres cerrar sesión?')) {
+    let url  ="http://localhost:8000/api/accounts/logout"
+    try {
+      await axios.post(url);
+      localStorage.removeItem('authToken');
+      navigate('/');
+    } catch(error) {
+      console.error(error)
+    }
+  }
+};
+
     return (
           <nav className="bg-dark text-white vh-100 p-3">
               <h4>Hello User</h4>
@@ -13,7 +29,12 @@ const SideBar:React.FC = () => {
               <br/>
               <ul className="nav flex-column">
                 <li className="nav-item">Update Profile</li>
-                <li className="nav-item">Logout</li>
+
+                  <li className="nav-item">
+                  <a href="#" onClick={(e) => { e.preventDefault(); handleLogout(); }}>
+                      Logout
+                  </a>
+                  </li>
               </ul>
           </nav>
   )
