@@ -53,7 +53,7 @@ const LoanForm:React.FC = () => {
       console.error("Failed to submit:", error);
     }
   }
-  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     //spread operator ... expand attributes
     setLoan({...loan, [e.target.name]: e.target.value})
 }
@@ -66,21 +66,31 @@ const LoanForm:React.FC = () => {
             <h5 className="text-primary fw-normal mb-3">Loan Details:</h5>
 
             <div className="row mb-3 align-items-center">
-              <label htmlFor="loanTypeId"className="col-sm-2 col-htmlForm-label">
-                Loan Type:
-              </label>
-              <div className="col-sm-4">
-                <input
-                  type="number"
-                  className="form-control"
-                  id="loanTypeId"
-                  name="loanTypeId"
-                  placeholder="Loan Type"
-                  required={true}
-                  value={loanTypeId}
-                  onChange={(e)=>onInputChange(e)}/>
-              </div>
-            </div>
+  <label htmlFor="loanTypeId" className="col-sm-2 col-form-label">
+    Loan Type:
+  </label>
+  <div className="col-sm-4">
+    <select
+      className="form-control"
+      id="loanTypeId"
+      name="loanTypeId"
+      required={true}
+      value={loanTypeId}
+      onChange={(e) => onInputChange(e)}
+    >
+      <option value=""></option>
+      <option value="1">Personal</option>
+      <option value="2">Mortgage</option>
+      <option value="3">Auto</option>
+      <option value="4">Debt Consolidation</option>
+      <option value="5">Business</option>
+      <option value="6">Education</option>
+      <option value="7">Health</option>
+      <option value="8">Home Improvement</option>
+      <option value="9">Vacation</option>
+    </select>
+  </div>
+</div>
 
             <div className="row mb-3 align-items-center">
               <label htmlFor="interestRate" className="col-sm-2 col-htmlForm-label">
