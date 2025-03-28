@@ -31,12 +31,12 @@ const AdminForm: React.FC = () => {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const url = "http://localhost:8000/api/users/register";
-    console.log("Regist user onSubmit executed");
+    console.log("Regist Admin onSubmit executed");
     console.log(account)
   try {
     await axios.post(url, account);
-    console.log('User Registered Successfully');
-    navigate("/login");
+    console.log('Admin Registered Successfully');
+    navigate("/admin/dashboard");
   } catch (error) {
     console.error("Failed to Register:", error);
     setError("Registration failed. Please check your data.");

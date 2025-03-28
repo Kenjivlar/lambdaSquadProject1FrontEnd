@@ -1,10 +1,17 @@
+import LoanLogo from "../../../public/img/LoanLogoNavbar.png";
+
 const TopBar:React.FC = () => {
   return (
     <div>
-      <header className="container-fluid py-3 border shadow">
+      <header className="container-fluid  border shadow">
         <div className="row">
           <div className="col-auto">
-            <h4 className="mb-0">Loan MGMT</h4>
+          <img 
+              src={LoanLogo} 
+              alt="Loan Logo" 
+              className="img-fluid" 
+              style={{ maxHeight: '60px' }} 
+            />
           </div>
         </div>
       </header>

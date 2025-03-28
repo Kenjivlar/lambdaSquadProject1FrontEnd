@@ -1,23 +1,50 @@
-type Props = {}
+import { Link } from "react-router-dom";
+import loanBg from "../../public/img/loanbg2.jpg";
 
-const HeroSection= (props: Props) => {
+const HeroSection: React.FC = () => {
     return (
-        <div className='container'>
-            <h1 className="visually-hidden">Heroes examples</h1>
-
-            <div className="px-4 py-5 my-5 text-center">
-                <img className="d-block mx-auto mb-4" src="/docs/{{< param docs_version >}}/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57" />
-                <h1 className="display-5 fw-bold text-body-emphasis">Loan System</h1>
+        <div 
+            className="px-4 py-5 text-center d-flex flex-column justify-content-center"
+            style={{
+                backgroundImage: `url(${loanBg})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                minHeight: '100vh',
+                position: 'relative'
+            }}
+        >
+            {/* Dark overlay for better text readability */}
+            <div 
+                className="position-absolute top-0 start-0 w-100 h-100"
+                style={{
+                    backgroundColor: 'rgba(0, 0, 0, 0.5)'
+                }}
+            ></div>
+            
+            <div className="position-relative z-index-1 text-white">
+                <h1 className="display-5 fw-bold mb-2">Loan Management System</h1>
                 <div className="col-lg-6 mx-auto">
-                    <p className="lead mb-4">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
+                    <p className="lead mb-4">
+                        Streamline your loan operations with our powerful Loan Management System. 
+                        From application to approval, tracking to repayment, manage every aspect with ease.
+                    </p>
                     <div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                        <button type="button" className="btn btn-primary btn-lg px-4 gap-3">Primary button</button>
-                        <button type="button" className="btn btn-outline-secondary btn-lg px-4">Secondary</button>
+                    <Link to="/login">
+                        <button type="button" className="btn btn-primary btn-lg px-4 gap-3">
+                            Login
+                        </button>
+                    </Link>
+                    <Link to="/register">
+                        <button type="button" className="btn btn-outline-light btn-lg px-4">
+                            Register
+                        </button>
+                    </Link>
                     </div>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default HeroSection;

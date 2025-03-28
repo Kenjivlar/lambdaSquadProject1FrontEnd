@@ -14,16 +14,13 @@ const LoginForm: React.FC = () => {
   const [signIn, setSignIn] = useState<SignInForm>({
     email: "",
     password: "",
-  }, );
+  });
 
   const [account, setAccount] = useState<Account | undefined>();
-
   const [error, setError] = useState("");
 
   useEffect(() => {
   }, []);
-    
-
 
   const loadAccount = async () => {
     try {
@@ -31,9 +28,8 @@ const LoginForm: React.FC = () => {
       const result = await axios.get(url_accounts, { withCredentials: true });
       console.log("Account data:", result.data);
       
-      setAccount(result.data);  // This is async
+      setAccount(result.data);
       
-      // Use the response data directly for navigation
       if (result.data?.accountType?.id === 1) {
         console.log("Admin role detected, redirecting...");
         setAccount(undefined);
@@ -57,16 +53,14 @@ const LoginForm: React.FC = () => {
       return;
     }
     const url = "http://localhost:8000/api/accounts/login";
-    console.log("OnSubmit Login executed");
-    console.log(signIn);
     try {
       await axios.post(url, signIn, {withCredentials:true});
       loadAccount();
-
     } catch (error) {
       console.error("Login Failed:", error);
     }
   }
+
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setSignIn({ ...signIn, [name]: value })
@@ -79,79 +73,65 @@ const LoginForm: React.FC = () => {
   }
 
   return (
-    <div className="container d-flex justify-content-center align-items-center" style={{ minHeight: "65vh" }}>
-      <main
-        className="form-signin w-100"
-        style={{
-          maxWidth: "800px",
-          padding: "30px",
-          border: "2px solid #007bff", // Border color
-          borderRadius: "8px", // Optional: Round corners, remove if you want a sharp square border
-          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", // Optional: Adds shadow for depth
-        }}
-      >
-        <form onSubmit={onSubmit}>
-
-          <h1 className="h3 mb-4 fw-bold text-primary text-center" style={{
-            backgroundColor: '#e0f7fa',
-            padding: '10px 20px',
-            borderRadius: '8px',
-            textShadow: '2px 2px 4px rgba(0, 0, 0, 0.1)',
-            fontSize: '2rem'
-          }}>
-            Please sign in
-          </h1>
-
-
-          <div className="mb-4">
-            <label htmlFor="email" className="form-label">Email-Id</label>
-            <input
-              type="email"
-              className="form-control"
-              id="email"
-              name="email"
-              placeholder="name@example.com"
-              value={signIn.email}
-              onChange={(e) => onInputChange(e)}
-            />
+    <div className="container d-flex justify-content-center align-items-center min-vh-100">
+      <div className="card shadow-lg p-4" style={{ width: "100%", maxWidth: "500px" }}>
+        <div className="card-body">
+          <div className="text-center mb-4">
+            <h2 className="text-primary fw-bold">Login</h2>
+            <hr className="w-25 mx-auto my-3 border-primary" />
           </div>
 
-          <div className="mb-3">
-            <label htmlFor="password" className="form-label">Password</label>
-            <input
-              type="password"
-              className="form-control"
-              id="password"
-              name="password"
-              value={signIn.password}
-              onChange={(e) => onInputChange(e)}
-            />
-          </div>
-          {error && <p className="text-danger">{error}</p>}
+          <form onSubmit={onSubmit}>
+            <div className="mb-3">
+              <label htmlFor="email" className="form-label">Email address</label>
+              <input
+                type="email"
+                className="form-control"
+                id="email"
+                name="email"
+                placeholder="name@example.com"
+                value={signIn.email}
+                onChange={onInputChange}
+              />
+            </div>
 
+            <div className="mb-3">
+              <label htmlFor="password" className="form-label">Password</label>
+              <input
+                type="password"
+                className="form-control"
+                id="password"
+                name="password"
+                placeholder="Password"
+                value={signIn.password}
+                onChange={onInputChange}
+              />
+            </div>
 
-          <div className="form-check mb-3">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              value="remember-me"
-              id="checkDefault"
-            />
-            <label className="form-check-label" htmlFor="checkDefault">
-              Remember me
-            </label>
-          </div>
+            {error && <div className="alert alert-danger">{error}</div>}
 
-          <div className="d-flex justify-content-center">
-            <button
-              type="submit"
-              className="btn btn-primary rounded-pill px-5"
-            >
-              Sign-in
-            </button>
-          </div>
-        </form>
-      </main>
+            <div className="mb-3 form-check">
+              <input
+                type="checkbox"
+                className="form-check-input"
+                id="rememberMe"
+              />
+              <label className="form-check-label" htmlFor="rememberMe">
+                Remember me
+              </label>
+            </div>
+
+            <div className="d-grid gap-2">
+              <button
+                type="submit"
+                className="btn btn-primary btn-lg rounded-pill"
+              >
+                Sign In
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };

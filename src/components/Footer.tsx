@@ -1,14 +1,20 @@
+import LambdaLogo from "../../public/img/LambdaSquadLogo.png";
 
 const Footer:React.FC = () => {
     return (
-        <div className="container">
-            <footer className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-                <p className="col-md-4 mb-0 text-body-secondary">&copy; 2025 LambdaSquad Team</p>
-                <a href="/" className="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none" aria-label="Bootstrap">
-                    <h1>Logo here!</h1>
+        <footer className="fixed-bottom bg-white border-top p-1">
+            <div className="d-flex justify-content-center">
+                <a href="/">
+                    <img 
+                        src={LambdaLogo} 
+                        alt="Lambda Logo" 
+                        className="img-fluid" 
+                        style={{ maxHeight: '50px' }} 
+                    />
+                <p></p>
                 </a>
-            </footer>
-        </div>
+            </div>
+        </footer>
     )
 }
 

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
-const RegistrationhtmlForm: React.FC = () => {
+const RegistrationForm: React.FC = () => {
   const navigate = useNavigate();
 
   type AccountForm = {
@@ -11,8 +11,8 @@ const RegistrationhtmlForm: React.FC = () => {
     accountTypeId: number | undefined;
     firstName: string;
     lastName: string;
-    phoneNumber: string | undefined;
-    creditScore: string | undefined;
+    phoneNumber: number | undefined;
+    creditScore: number | undefined;
   };
 
   const [account, setAccount] = useState<AccountForm>({
@@ -63,19 +63,7 @@ const RegistrationhtmlForm: React.FC = () => {
     <div className="container">
       <main className="htmlForm-signin w-100 m-auto">
         <form onSubmit={(e) => onSubmit(e)}>
-          <h1
-            className="h3 mb-4 fw-bold text-primary text-center mt-4"
-            style={{
-              backgroundColor: "#e0f7fa",
-              padding: "10px 20px",
-              borderRadius: "500px",
-              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.1)",
-              fontSize: "2rem",
-            }}
-          >
-            {" "}
-            Register Here{" "}
-          </h1>
+          <br/>
          
           <div className="border border-primary rounded p-4">
             <h5 className="text-primary fw-normal mb-3">User Details:</h5>
@@ -242,4 +230,4 @@ const RegistrationhtmlForm: React.FC = () => {
   );
 };
 
-export default RegistrationhtmlForm;
+export default RegistrationForm;

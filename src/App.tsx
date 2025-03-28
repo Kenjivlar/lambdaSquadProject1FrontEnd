@@ -1,4 +1,3 @@
-import SignInView from "./components/LogInForm";
 import HomeView from "./views/HomeView";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import RegistrationView from "./views/RegistrationView";
@@ -8,6 +7,7 @@ import UpdateUserView from "./views/UpdateUserView";
 import AdminDashboard from "./views/AdminDashboard";
 import CreateAdminView from "./views/CreateAdminView";
 import UpdateAdminView from "./views/UpdateAdminView";
+import LoginView from "./views/LogInView";
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomeView />} />
-          <Route path="/login" element={<SignInView />} />
+          <Route path="/login" element={<LoginView/>} />
           <Route path="/register" element={<RegistrationView />} />
           <Route path="/user/dashboard" element={<UserDashboard/>}/>
           <Route path="/user/dashboard/create-loan" element={<CreateLoanView/>}/>
