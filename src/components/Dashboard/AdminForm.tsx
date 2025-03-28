@@ -21,8 +21,8 @@ const AdminForm: React.FC = () => {
     accountTypeId: 1,
     firstName: "",
     lastName: "",
-    phoneNumber: undefined,
-    creditScore: undefined,
+    phoneNumber: "",
+    creditScore: "",
   });
 
   const [error, setError] = useState<string>("");
@@ -142,26 +142,7 @@ const AdminForm: React.FC = () => {
               </div>
             </div>
 
-            <div className="row mb-3 align-items-center">
-              <label
-                htmlFor="creditScore"
-                className="col-sm-2 col-htmlForm-label"
-              >
-                Credit Score:
-              </label>
-              <div className="col-sm-4">
-                <input
-                  type="number"
-                  className="form-control"
-                  id="creditScore"
-                  name="creditScore"
-                  placeholder="Credit Score"
-                  required
-                  value={account.creditScore}
-                  onChange={(e) => onInputChange(e)}
-                />
-              </div>
-            </div>
+        
 
             <div className="row mb-3 align-items-center">
               <label htmlFor="password" className="col-sm-2 col-htmlForm-label">

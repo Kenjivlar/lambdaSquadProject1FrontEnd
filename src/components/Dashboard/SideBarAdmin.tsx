@@ -4,17 +4,19 @@ import { Link, useNavigate } from "react-router-dom";
 const SideBarAdmin:React.FC = () => {
   const navigate = useNavigate();
 
-const handleLogout = async () => {
-  if (window.confirm('Are you sure to logout?')) {
-    let url  ="http://localhost:8000/api/accounts/logout"
-    try {
-      await axios.post(url, { withCredentials:true });
-      navigate('/');
-    } catch(error) {
-      console.error(error)
+  const handleLogout = async () => {
+    if (window.confirm('Are you sure to logout?')) {
+      let url  ="http://localhost:8000/api/accounts/logout"
+      try {
+        await axios.post(url, { withCredentials:true });
+        console.log("logged out!")
+        navigate('/');
+      } catch(error) {
+        console.error(error)
+      }
     }
-  }
-};
+  };
+  
 
     return (
           <nav className="bg-dark text-white vh-100 p-3">

@@ -36,9 +36,11 @@ const LoginForm: React.FC = () => {
       // Use the response data directly for navigation
       if (result.data?.accountType?.id === 1) {
         console.log("Admin role detected, redirecting...");
+        setAccount(undefined);
         navigate("/admin/dashboard");
       } else {
         console.log("User role detected, redirecting...");
+        setAccount(undefined);
         navigate("/user/dashboard");
       }
     } catch (error) {
@@ -49,7 +51,7 @@ const LoginForm: React.FC = () => {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(account);
-    //setAccount(undefined);
+    setAccount(undefined);
     if (!signIn.email || !signIn.password) {
       setError("All fields are required.");
       return;
@@ -67,7 +69,6 @@ const LoginForm: React.FC = () => {
   }
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    loadAccount()
     setSignIn({ ...signIn, [name]: value })
 
     if (name === "email" && !/\S+@\S+\.\S+/.test(value)) {
