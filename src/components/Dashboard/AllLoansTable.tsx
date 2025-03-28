@@ -23,7 +23,7 @@ const AllLoansTable: React.FC = () => {
     }
   };
 
-  const handleStatusUpdate = async (loanId: number, newStatus: "accepted" | "rejected") => {
+  const handleStatusUpdate = async (loanId: number, newStatus: "approved" | "rejected") => {
     setLoadingId(loanId);
     setError(null);
 
@@ -88,7 +88,7 @@ const AllLoansTable: React.FC = () => {
                 <div className="row">
                   <div className="col">
                     <button
-                      onClick={() => handleStatusUpdate(loan.id, "accepted")}
+                      onClick={() => handleStatusUpdate(loan.id, "approved")}
                       className='btn btn-success btn-sm me-3'
                       disabled={loadingId === loan.id || loan.status.status !== "pending"}
                     >
