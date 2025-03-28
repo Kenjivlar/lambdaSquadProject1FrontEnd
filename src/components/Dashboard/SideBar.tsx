@@ -2,6 +2,10 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { Account } from "../../models/LoanApplication";
 import { useEffect, useState } from "react";
+import NoteAddIcon from '@mui/icons-material/NoteAdd';
+import UpdateIcon from '@mui/icons-material/Update';
+import LogoutIcon from '@mui/icons-material/Logout';
+import RealEstateAgentIcon from '@mui/icons-material/RealEstateAgent';
 
 const SideBar:React.FC = () => {
   const navigate = useNavigate();
@@ -43,14 +47,15 @@ const handleLogout = async () => {
               <p>{account?.email}</p>
               <p>Operations:</p>
               <ul className="nav flex-column">
-                  <li className="nav-item"><Link className="nav-link text-white" to="/user/dashboard/create-loan">Create a loan</Link></li>
-                  <li className="nav-item"><Link className="nav-link text-white" to="/user/dashboard">All Loans</Link></li>
+                  <li className="nav-item"><Link className="nav-link text-white" to="/user/dashboard/create-loan"><NoteAddIcon className="me-2" fontSize="small"/> Create a loan</Link></li>
+                  <li className="nav-item"><Link className="nav-link text-white" to="/user/dashboard"><RealEstateAgentIcon className="me-2" fontSize="small"/> All Loans</Link></li>
               </ul>
               <ul className="nav flex-column">
-                <li className="nav-item"><Link className="nav-link text-white" to="/user/dashboard/update-profile">Update Profile</Link></li>
+                <li className="nav-item"><Link className="nav-link text-white" to="/user/dashboard/update-profile"><UpdateIcon className="me-2" fontSize="small"/> Update Profile</Link></li>
 
                   <li className="nav-item">
                   <a className="nav-link text-white" href="" onClick={(e) => { e.preventDefault(); handleLogout(); }}>
+                      <LogoutIcon className="me-2" fontSize="small"/>
                       Logout
                   </a>
                   </li>
