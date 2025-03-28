@@ -23,7 +23,10 @@ const AllLoansTable: React.FC = () => {
     }
   };
 
-  const handleStatusUpdate = async (loanId: number, newStatus: "accepted" | "rejected") => {
+  const handleStatusUpdate = async (
+    loanId: number,
+    newStatus: "accepted" | "rejected"
+  ) => {
     setLoadingId(loanId);
     setError(null);
 
@@ -35,11 +38,13 @@ const AllLoansTable: React.FC = () => {
       );
 
       // Update the local state to reflect the change
-      setLoans(loans.map(loan => 
-        loan.id === loanId 
-          ? { ...loan, status: { ...loan.status, status: newStatus } } 
-          : loan
-      ));
+      setLoans(
+        loans.map((loan) =>
+          loan.id === loanId
+            ? { ...loan, status: { ...loan.status, status: newStatus } }
+            : loan
+        )
+      );
     } catch (err) {
       console.error("Failed to update loan status:", err);
       setError("Failed to update loan status");
@@ -53,11 +58,11 @@ const AllLoansTable: React.FC = () => {
       <h3>Loans</h3>
       {error && <div className="alert alert-danger">{error}</div>}
       <table className="table table-striped table-hover align-middle">
-        <thead className='table-dark'>
+        <thead className="table-dark">
           <tr>
             <th scope="col">Id</th>
             <th scope="col">Name</th>
-            <th scope='col'>Title</th>
+            <th scope="col">Title</th>
             <th scope="col">Description</th>
             <th scope="col">Type</th>
             <th scope="col">Amount</th>
@@ -74,23 +79,35 @@ const AllLoansTable: React.FC = () => {
               <td>{loan.description}</td>
               <td>{loan.loanType.loanType}</td>
               <td>
-                <NumericFormat 
+                <NumericFormat
                   value={loan.amount}
-                  displayType={'text'}
-                  thousandSeparator=',' 
-                  prefix={'$'}
-                  decimalScale={2} 
+                  displayType={"text"}
+                  thousandSeparator=","
+                  prefix={"$"}
+                  decimalScale={2}
                   fixedDecimalScale
                 />
               </td>
-              <td>{loan.status.status}</td>
-              <td className='text-center'>
+              <td
+                style={{
+                  color:
+                    loan.status.status === "pending"
+                      ? "orange"
+                      : loan.status.status === "accepted"
+                      ? "green"
+                      : loan.status.status === "rejected"
+                      ? "red"
+                      : "inherit",
+                }}
+              >
+                {loan.status.status}
+              </td>
+              <td className="text-center">
                 <div className="row">
                   <div className="col">
                     <button
                       onClick={() => handleStatusUpdate(loan.id, "accepted")}
-                      className='btn btn-success btn-sm me-3'
-                      
+                      className="btn btn-success btn-sm me-3"
                     >
                       {loadingId === loan.id ? "Processing..." : "Accept"}
                     </button>
@@ -98,8 +115,7 @@ const AllLoansTable: React.FC = () => {
                   <div className="col">
                     <button
                       onClick={() => handleStatusUpdate(loan.id, "rejected")}
-                      className='btn btn-danger btn-sm me-3'
-                 
+                      className="btn btn-danger btn-sm me-3"
                     >
                       {loadingId === loan.id ? "Processing..." : "Reject"}
                     </button>

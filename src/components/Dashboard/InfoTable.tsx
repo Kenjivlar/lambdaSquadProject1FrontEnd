@@ -43,15 +43,26 @@ const InfoTable:React.FC = () => {
         loans.map((loan, index) => (
             <tr key={index}>
             <th scope="row">{loan.id}</th>
-              <td>{loan.title}</td>
-              <td>{loan.loanType.loanType}</td>
-              <td><NumericFormat value={loan.amount}
-                  displayType={'text'}
-                  thousandSeparator=',' prefix={'$'}
-                  decimalScale={2} fixedDecimalScale/>
-              </td>
-              <td>{loan.status.status}</td>
-        </tr>
+            <td>{loan.title}</td>
+            <td>{loan.loanType.loanType}</td>
+            <td>
+              <NumericFormat 
+                value={loan.amount}
+                displayType={'text'}
+                thousandSeparator=',' 
+                prefix={'$'}
+                decimalScale={2} 
+                fixedDecimalScale
+              />
+            </td>
+            <td style={{
+              color: loan.status.status === 'pending' ? 'orange' : 
+                    loan.status.status === 'accepted' ? 'green' : 
+                    loan.status.status === 'rejected' ? 'red' : 'inherit'
+            }}>
+              {loan.status.status}
+            </td>
+          </tr>
         ))
         }
     </tbody>
