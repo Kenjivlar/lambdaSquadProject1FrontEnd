@@ -161,7 +161,7 @@ const LoanForm:React.FC = () => {
  
           <div className="d-flex justify-content-center">
             <button type="submit" className="btn btn-primary rounded-pill px-5">
-              Register
+              Create
             </button>
             <button
               type="button"
