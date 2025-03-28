@@ -8,6 +8,7 @@ import AdminDashboard from "./views/AdminDashboard";
 import CreateAdminView from "./views/CreateAdminView";
 import UpdateAdminView from "./views/UpdateAdminView";
 import LoginView from "./views/LogInView";
+import AdminAllUsersView from "./views/AdminAllUsersView";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/admin/dashboard" element={<AdminDashboard/>}/>
           <Route path="/admin/dashboard/create-admin" element={<CreateAdminView/>}/>
           <Route path="/admin/dashboard/update-admin" element={<UpdateAdminView/>}/>
+          <Route path="/admin/dashboard/all-users" element={<AdminAllUsersView/>}/>
         </Routes>
       </BrowserRouter>
     </>

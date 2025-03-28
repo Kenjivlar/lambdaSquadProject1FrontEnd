@@ -39,13 +39,13 @@ const handleLogout = async () => {
 
     return (
           <nav className="bg-dark text-white vh-100 p-3">
-              <h4>Hello User{/*account?.email*/}</h4>
+              <h4>Hello User</h4>
+              <p>{account?.email}</p>
               <p>Operations:</p>
               <ul className="nav flex-column">
                   <li className="nav-item"><Link className="nav-link text-white" to="/user/dashboard/create-loan">Create a loan</Link></li>
                   <li className="nav-item"><Link className="nav-link text-white" to="/user/dashboard">All Loans</Link></li>
               </ul>
-              <br/>
               <ul className="nav flex-column">
                 <li className="nav-item"><Link className="nav-link text-white" to="/user/dashboard/update-profile">Update Profile</Link></li>
 

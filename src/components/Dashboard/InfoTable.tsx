@@ -24,7 +24,7 @@ const InfoTable:React.FC = () => {
   return (
     <div className="container mt-4">
     
-    <h3>Loans</h3>
+    <h3>LOANS</h3>
     <table className="table table-striped table-hover align-middle">
     <thead className='table-dark'>
         <tr>
