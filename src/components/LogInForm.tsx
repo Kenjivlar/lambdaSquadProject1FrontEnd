@@ -24,7 +24,7 @@ const LoginForm: React.FC = () => {
 
   const loadAccount = async () => {
     try {
-      const url_accounts = "http://localhost:8000/api/accounts/session-check";
+      const url_accounts = "http://18.208.153.87:8000/api/accounts/session-check";
       const result = await axios.get(url_accounts, { withCredentials: true });
       console.log("Account data:", result.data);
       
@@ -52,7 +52,7 @@ const LoginForm: React.FC = () => {
       setError("All fields are required.");
       return;
     }
-    const url = "http://localhost:8000/api/accounts/login";
+    const url = "http://18.208.153.87:8000/api/accounts/login";
     try {
       await axios.post(url, signIn, {withCredentials:true});
       loadAccount();

@@ -30,7 +30,7 @@ const RegistrationForm: React.FC = () => {
   // Methods
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const url = "http://localhost:8000/api/users/register";
+    const url = "http://18.208.153.87:8000/api/users/register";
     console.log("Regist user onSubmit executed");
     console.log(account)
   try {

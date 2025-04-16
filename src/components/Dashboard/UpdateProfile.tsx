@@ -19,12 +19,11 @@ const UpdateProfile: React.FC = () => {
     creditScore: undefined,
   });
 
-  const [error, setError] = useState<string>("");
 
   // Methods
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const url = "http://localhost:8000/api/users/edit-my-info";
+        const url = "http://18.208.153.87:8000/api/users/edit-my-info";
         const payload = {
             ...account,
             creditScore: account.creditScore !== undefined ? Number(account.creditScore) : undefined,
@@ -38,7 +37,6 @@ const UpdateProfile: React.FC = () => {
         navigate("/user/dashboard");
     } catch (error) {
         console.error("Failed to Register:", error);
-        setError("Registration failed. Please check your data.");
     }
   }
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

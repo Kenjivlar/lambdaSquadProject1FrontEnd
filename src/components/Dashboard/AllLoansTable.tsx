@@ -4,7 +4,7 @@ import { NumericFormat } from "react-number-format";
 import { LoanApplication } from "../../models/LoanApplication";
 
 const AllLoansTable: React.FC = () => {
-  const urlBase = "http://localhost:8000/api/admin/loans";
+  const urlBase = "http://18.208.153.87:8000/api/admin/loans";
   const [loans, setLoans] = useState<LoanApplication[]>([]);
   const [loadingId, setLoadingId] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -32,7 +32,7 @@ const AllLoansTable: React.FC = () => {
 
     try {
       await axios.put(
-        `http://localhost:8000/api/loans/admin/${loanId}/status`,
+        `http://18.208.153.87:8000/api/loans/admin/${loanId}/status`,
         { status: newStatus },
         { withCredentials: true }
       );

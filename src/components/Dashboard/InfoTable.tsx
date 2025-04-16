@@ -1,11 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { NumericFormat } from "react-number-format";
-import { Link } from "react-router-dom";
 import { LoanApplication } from "../../models/LoanApplication"
 
 const InfoTable:React.FC = () => {
-  const urlBase = "http://localhost:8000/api/users/my-loans";
+  const urlBase = "http://18.208.153.87:8000/api/users/my-loans";
 
   const[loans, setLoans] = useState<LoanApplication[]>([]);
 

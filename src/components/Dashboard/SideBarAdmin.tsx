@@ -14,7 +14,6 @@ const SideBarAdmin:React.FC = () => {
 
   const [account, setAccount] = useState<Account>();
 
-  const [error, setError] = useState("");
 
   useEffect(() => {
     loadAccount();
@@ -22,7 +21,7 @@ const SideBarAdmin:React.FC = () => {
     
 
   const loadAccount= async () => {
-    const url_accounts = "http://localhost:8000/api/accounts/session-check"
+    const url_accounts = "http://18.208.153.87:8000/api/accounts/session-check"
     const result = await axios.get(url_accounts, { withCredentials:true });
     console.log("Account");
     console.log(result.data);
@@ -32,7 +31,7 @@ const SideBarAdmin:React.FC = () => {
 
 const handleLogout = async () => {
   if (window.confirm('Are you sure to logout?')) {
-    let url  ="http://localhost:8000/api/accounts/logout"
+    let url  ="http://18.208.153.87:8000/api/accounts/logout"
     try {
       await axios.post(url, { withCredentials:true });
       console.log("logged out!")

@@ -4,9 +4,8 @@ import { NumericFormat } from "react-number-format";
 import { User } from "../../models/LoanApplication";
 
 const AllUsersTable: React.FC = () => {
-  const urlBase = "http://localhost:8000/api/admin/users";
+  const urlBase = "http://18.208.153.87:8000/api/admin/users";
   const [users, setUsers] = useState<User[]>([]);
-  const [loadingId, setLoadingId] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
